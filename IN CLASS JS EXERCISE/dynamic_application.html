@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Activity</title>
+    
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body onload="greet()">
+    <div class="container">
+        <h1>IN CLASS ACTIVITY</h1>
+
+        <button onclick="alert('Dynamic Application')">Click me</button>
+        <p id="text">This is my first HTML, CSS and Javascript fusion</p>
+        <button onclick="toggleText()">Change the text</button>
+        <button id="click">Internal Javascript Click</button>
+
+        <!-- Button to toggle background color and text -->
+        <button id="toggleButton">Change Background Color</button>
+        <p id="text">Click the button to change the background color.</p>
+
+        <!-- Text input for custom color -->
+        <input type="text" id="colorInput" placeholder="Enter a color (e.g., red, #FF0000)">
+        <button id="applyCustomColor">Apply Custom Color</button>
+        <p class="error" id="errorMessage"></p>
+
+        <!-- Color picker -->
+        <input type="color" id="colorPicker">
+        <button id="applyPickedColor">Apply Picked Color</button>
+    </div>
+    <script>
+        document.getElementById('click').onclick = function(){
+            alert('Internal Javascript Click');
+        }
+
+        function toggleText() {
+            var textElement = document.getElementById('text');
+            if (textElement.innerHTML === 'This is my first HTML, CSS and Javascript fusion') {
+                textElement.innerHTML = 'I am testing inline JS';
+            } else {
+                textElement.innerHTML = 'This is my first HTML, CSS and Javascript fusion';
+            };}
+        // Get references to elements
+        const toggleButton = document.getElementById('toggleButton');
+        const textElement = document.getElementById('text');
+        const colorInput = document.getElementById('colorInput');
+        const applyCustomColorButton = document.getElementById('applyCustomColor');
+        const colorPicker = document.getElementById('colorPicker');
+        const applyPickedColorButton = document.getElementById('applyPickedColor');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Default colors
+        const defaultColor = '#f0f0f0';
+        let isBackgroundChanged = false;
+
+        // Function to toggle background color and text
+        toggleButton.addEventListener('click', function () {
+            if (isBackgroundChanged) {
+                document.body.style.backgroundColor = defaultColor;
+                textElement.textContent = 'Click the button to change the background color.';
+            } else {
+                document.body.style.backgroundColor = 'lightblue';
+                textElement.textContent = 'Background color changed! Click to change it back.';
+            }
+            isBackgroundChanged = !isBackgroundChanged;
+        });
+
+        // Function to apply custom color from text input
+        applyCustomColorButton.addEventListener('click', function () {
+            const color = colorInput.value.trim();
+            if (color === '') {
+                document.body.style.backgroundColor = defaultColor;
+                errorMessage.textContent = 'No color entered. Defaulting to light gray.';
+            } else {
+                // Check if the color is valid
+                const tempElement = document.createElement('div');
+                tempElement.style.backgroundColor = color;
+                if (tempElement.style.backgroundColor) {
+                    document.body.style.backgroundColor = color;
+                    errorMessage.textContent = '';
+                } else {
+                    errorMessage.textContent = 'Invalid color. Please enter a valid color name or hex code.';
+                }
+            }
+        });
+
+        // Function to apply picked color from color picker
+        applyPickedColorButton.addEventListener('click', function () {
+            document.body.style.backgroundColor = colorPicker.value;
+            errorMessage.textContent = '';
+        });
+    </script>
+
+</body>
+</html>
