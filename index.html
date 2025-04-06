@@ -1,5 +1,112 @@
-<--this is an index file-->
+
+<!-- This is an index file -->
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Activity</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body onload="greet()">
+    <div class="container">
+        <h1>IN CLASS ACTIVITY</h1>
+
+        <!-- Button that triggers an alert with a message -->
+        <button onclick="alert('Dynamic Application')">Click me</button>
+
+        <!-- Paragraph to display initial text -->
+        <p id="text">This is my first HTML, CSS and Javascript fusion</p>
+
+        <!-- Button to toggle the text content of the paragraph -->
+        <button onclick="toggleText()">Change the text</button>
+
+        <!-- Button to trigger internal JavaScript click event -->
+        <button id="click">Internal Javascript Click</button>
+
+        <!-- Button to toggle background color and text -->
+        <button id="toggleButton">Change Background Color</button>
+        <p id="text">Click the button to change the background color.</p>
+
+        <!-- Text input for custom color -->
+        <input type="text" id="colorInput" placeholder="Enter a color (e.g., red, #FF0000)">
+        <button id="applyCustomColor">Apply Custom Color</button>
+        <p class="error" id="errorMessage"></p>
+
+        <!-- Color picker input -->
+        <input type="color" id="colorPicker">
+        <button id="applyPickedColor">Apply Picked Color</button>
+    </div>
+    <script>
+        // Event listener for internal JavaScript click event
+        document.getElementById('click').onclick = function(){
+            alert('Internal Javascript Click');
+        }
+
+        // Function to toggle the text content of the paragraph
+        function toggleText() {
+            var textElement = document.getElementById('text');
+            if (textElement.innerHTML === 'This is my first HTML, CSS and Javascript fusion') {
+                textElement.innerHTML = 'I am testing inline JS';
+            } else {
+                textElement.innerHTML = 'This is my first HTML, CSS and Javascript fusion';
+            }
+        }
+
+        // Get references to elements
+        const toggleButton = document.getElementById('toggleButton');
+        const textElement = document.getElementById('text');
+        const colorInput = document.getElementById('colorInput');
+        const applyCustomColorButton = document.getElementById('applyCustomColor');
+        const colorPicker = document.getElementById('colorPicker');
+        const applyPickedColorButton = document.getElementById('applyPickedColor');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Default color settings
+        const defaultColor = '#f0f0f0';
+        let isBackgroundChanged = false;
+
+        // Function to toggle background color and text
+        toggleButton.addEventListener('click', function () {
+            if (isBackgroundChanged) {
+                document.body.style.backgroundColor = defaultColor;
+                textElement.textContent = 'Click the button to change the background color.';
+            } else {
+                document.body.style.backgroundColor = 'lightblue';
+                textElement.textContent = 'Background color changed! Click to change it back.';
+            }
+            isBackgroundChanged = !isBackgroundChanged;
+        });
+
+        // Function to apply custom color from text input
+        applyCustomColorButton.addEventListener('click', function () {
+            const color = colorInput.value.trim();
+            if (color === '') {
+                document.body.style.backgroundColor = defaultColor;
+                errorMessage.textContent = 'No color entered. Defaulting to light gray.';
+            } else {
+                // Check if the color is valid
+                const tempElement = document.createElement('div');
+                tempElement.style.backgroundColor = color;
+                if (tempElement.style.backgroundColor) {
+                    document.body.style.backgroundColor = color;
+                    errorMessage.textContent = '';
+                } else {
+                    errorMessage.textContent = 'Invalid color. Please enter a valid color name or hex code.';
+                }
+            }
+        });
+
+        // Function to apply picked color from color picker
+        applyPickedColorButton.addEventListener('click', function () {
+            document.body.style.backgroundColor = colorPicker.value;
+            errorMessage.textContent = '';
+        });
+    </script>
+</body>
+</html>DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
